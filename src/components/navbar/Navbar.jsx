@@ -5,10 +5,15 @@ import './Navbar.css';
 
 const Navbar = () => {
     const [activeLink, setActiveLink] = useState(null);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
     const links = ['Home', 'Consult Here', "Emergency"];
 
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
+
     return (
-        <motion.nav className="navbar fixed gradient  flex justify-between items-center p-5 shadow-md top-0 w-full z-10 text-2xl"
+        <motion.nav className={`navbar gradient flex justify-between items-center p-5 shadow-md top-0 w-full z-10 text-2xl ${isMenuOpen ? 'mobile-menu' : ''}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
@@ -17,7 +22,10 @@ const Navbar = () => {
                 <img src="logo.png" alt="Logo" className="h-12 w-12 mr-2 " />
                 VitaWell
             </NavLink>
-            <ul className="text-white flex items-center space-x-5 relative uppercase weight-bold font">
+            <div className="menu-icon" onClick={toggleMenu}>
+                {isMenuOpen ? <i className="fas fa-times"></i> : <i className="fas fa-bars"></i>}
+            </div>
+            <ul className={`text-white flex items-center space-x-5 relative uppercase weight-bold font ${isMenuOpen ? 'nav-active' : ''}`}>
                 {links.map((link, index) => (
                     <motion.li
                         key={index}
@@ -25,7 +33,6 @@ const Navbar = () => {
                         onHoverStart={() => setActiveLink(index)}
                         onHoverEnd={() => setActiveLink(null)}
                     >
-
                         <NavLink to={`/${link.replace(' ', '-').toLowerCase().replace('home', '')}`} activeClassName="active" className='nav-a'>{link}</NavLink>
                         {activeLink === index && (
                             <motion.div
@@ -47,7 +54,6 @@ const Navbar = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.5 }}
-
                 >
                     Login
                 </motion.span>
