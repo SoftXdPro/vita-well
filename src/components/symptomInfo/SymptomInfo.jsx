@@ -3,6 +3,10 @@ import { motion } from 'framer-motion';
 import './SymptomInfo.css';
 
 const SymptomInfo = ({ symptom }) => {
+    const handleOrderMedicine = (medicine) => {
+        window.location.href = `/order-medicine?medicine=${encodeURIComponent(JSON.stringify(medicine))}`;
+    };
+
     return (
         <div className="symptom-info-container">
             <motion.div className="symptom-info bg-white p-6 rounded-lg"
@@ -30,12 +34,18 @@ const SymptomInfo = ({ symptom }) => {
                     </ul>
                 </div>
                 {symptom.medicines && (
-                    <div className="symptom-medicines">
+                    <div className="symptom-medicines flex flex-col gap-2">
                         <h3 className="text-lg font-semibold mb-2">Medicines:</h3>
                         <ul>
                             {symptom.medicines.map((medicine, index) => (
                                 <li key={index} className="mb-2">
-                                    <a href={medicine.url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">{medicine.name}</a>
+                                    <div className="flex items-center justify-between">
+                                        <span className="text-blue-600 hover:underline">{medicine.name}</span>
+                                        <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-1 px-3 rounded"
+                                            onClick={() => handleOrderMedicine(medicine)}>
+                                            Order
+                                        </button>
+                                    </div>
                                 </li>
                             ))}
                         </ul>

@@ -5,7 +5,7 @@ import './Navbar.css';
 
 const Navbar = () => {
     const [activeLink, setActiveLink] = useState(null);
-    const links = ['Home', 'Consult Here',];
+    const links = ['Home', 'Consult Here', "Emergency"];
 
     return (
         <motion.nav className="navbar fixed gradient  flex justify-between items-center p-5 shadow-md top-0 w-full z-10 text-2xl"

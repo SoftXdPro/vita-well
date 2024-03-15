@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './SymptomSearch.css';
 import SymptomInfo from '../symptomInfo/SymptomInfo';
+import MapComponent from '../mapComponent/MapComponent';
 
 const defaultSymptoms = [
     {
@@ -16,7 +17,6 @@ const defaultSymptoms = [
         medicines: [
             { name: 'Paracetamol', url: 'https://www.example.com/paracetamol' },
             { name: 'Ibuprofen', url: 'https://www.example.com/ibuprofen' },
-            // Add more medicines as needed
         ]
     },
     {
@@ -32,7 +32,6 @@ const defaultSymptoms = [
         medicines: [
             { name: 'Cough Syrup', url: 'https://www.example.com/cough-syrup' },
             { name: 'Honey and Lemon', url: 'https://www.example.com/honey-lemon' },
-            // Add more medicines as needed
         ]
     },
 
@@ -49,7 +48,6 @@ const defaultSymptoms = [
         medicines: [
             { name: 'Aspirin', url: 'https://www.example.com/aspirin' },
             { name: 'Acetaminophen', url: 'https://www.example.com/acetaminophen' },
-            // Add more medicines as needed
         ]
     },
     {
@@ -65,7 +63,6 @@ const defaultSymptoms = [
         medicines: [
             { name: 'Caffeine', url: 'https://www.example.com/caffeine' },
             { name: 'Vitamin B12 Supplements', url: 'https://www.example.com/vitamin-b12' },
-            // Add more medicines as needed
         ]
     },
     {
@@ -81,7 +78,6 @@ const defaultSymptoms = [
         medicines: [
             { name: 'Ondansetron', url: 'https://www.example.com/ondansetron' },
             { name: 'Ginger Supplements', url: 'https://www.example.com/ginger' },
-            // Add more medicines as needed
         ]
     },
     {
@@ -98,7 +94,6 @@ const defaultSymptoms = [
             { name: 'Ibuprofen', url: 'https://www.example.com/ibuprofen' },
             { name: 'Acetaminophen', url: 'https://www.example.com/acetaminophen' },
             { name: 'Muscle Relaxants', url: 'https://www.example.com/muscle-relaxants' },
-            // Add more medications as needed
         ]
     },
     {
@@ -115,7 +110,6 @@ const defaultSymptoms = [
             { name: 'Acetaminophen', url: 'https://www.example.com/acetaminophen' },
             { name: 'Ibuprofen', url: 'https://www.example.com/ibuprofen' },
             { name: 'Throat Lozenges', url: 'https://www.example.com/throat-lozenges' },
-            // Add more medications as needed
         ]
     },
     {
@@ -131,7 +125,6 @@ const defaultSymptoms = [
         medicines: [
             { name: 'Bronchodilators', url: 'https://www.example.com/bronchodilators' },
             { name: 'Corticosteroids', url: 'https://www.example.com/corticosteroids' },
-            // Add more medications as needed
         ]
     },
     {
@@ -148,7 +141,6 @@ const defaultSymptoms = [
             { name: 'Antacids', url: 'https://www.example.com/antacids' },
             { name: 'Proton Pump Inhibitors', url: 'https://www.example.com/proton-pump-inhibitors' },
             { name: 'Antibiotics', url: 'https://www.example.com/antibiotics' },
-            // Add more medications as needed
         ]
     },
     {
@@ -165,7 +157,6 @@ const defaultSymptoms = [
             { name: 'Loperamide', url: 'https://www.example.com/loperamide' },
             { name: 'Bismuth Subsalicylate', url: 'https://www.example.com/bismuth-subsalicylate' },
             { name: 'Antibiotics', url: 'https://www.example.com/antibiotics' },
-            // Add more medications as needed
         ]
     },
 
@@ -173,7 +164,23 @@ const defaultSymptoms = [
 const SymptomSearch = () => {
     const [query, setQuery] = useState('');
     const [results, setResults] = useState([]);
+    const [userLocation, setUserLocation] = useState(null);
 
+    useEffect(() => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                position => {
+                    const { latitude, longitude } = position.coords;
+                    setUserLocation({ latitude, longitude });
+                },
+                error => {
+                    console.error('Error getting user location:', error);
+                }
+            );
+        } else {
+            console.error('Geolocation is not supported by this browser.');
+        }
+    }, []);
     const handleChange = (event) => {
         setQuery(event.target.value);
         fetchSymptoms(event.target.value);
@@ -208,6 +215,7 @@ const SymptomSearch = () => {
                     </div>
                 ))}
             </div>
+            {/* {userLocation && <MapComponent userLocation={userLocation} />} */}
         </div>
     );
 };

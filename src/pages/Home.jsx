@@ -9,8 +9,11 @@ import ContactUs from './ContactUs';
 const Home = () => {
     const symptomSearchControls = useAnimation();
     const consultControls = useAnimation();
+    const contactUsControls = useAnimation();
+
     const { ref: symptomSearchRef, inView: symptomSearchInView } = useInView();
     const { ref: consultRef, inView: consultInView } = useInView();
+    const { ref: contactUsRef, inView: contactUsInView } = useInView();
 
     useEffect(() => {
         if (symptomSearchInView) {
@@ -19,11 +22,13 @@ const Home = () => {
         if (consultInView) {
             consultControls.start({ opacity: 1, y: 0 });
         }
-    }, [symptomSearchControls, symptomSearchInView, consultControls, consultInView]);
+        if (contactUsInView) {
+            contactUsControls.start({ opacity: 1, y: 0 });
+        }
+    }, [symptomSearchControls, symptomSearchInView, consultControls, consultInView, contactUsControls, contactUsInView]);
 
     return (
         <div className='bg-gray-100'>
-            gd
             <Hero
                 title="Welcome to VitaWell"
                 subtitle="Nurturing Body and Mind for Balanced Living"
@@ -57,13 +62,13 @@ const Home = () => {
             </div>
             <div className="mx-auto flex flex-col items-center mt-10 p-10 ">
                 <motion.h2
-                    ref={consultRef}
+                    ref={contactUsRef}
                     className="bg-yellow-300 text-4xl font-bold font text-center mb-6 p-10 text-white wegiht-bold rounded-xl max-w-96"
                     initial={{ opacity: 0, y: 20 }}
-                    animate={consultControls}
+                    animate={contactUsControls}
                     transition={{ duration: 0.5 }}
                 >
-                    Contact US
+                    Contact Us
                 </motion.h2>
                 <ContactUs />
             </div>

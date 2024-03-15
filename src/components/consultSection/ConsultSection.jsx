@@ -15,7 +15,7 @@ const ConsultSection = () => {
             rotate: 0,
             transition: {
                 duration: 0.3,
-                staggerChildren: 1 // Stagger effect for animation
+                staggerChildren: .7 // Stagger effect for animation
             }
         }
     };

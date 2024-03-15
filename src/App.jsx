@@ -7,6 +7,7 @@ import PageNotFound from './pages/PageNotFound'
 import ContactUs from './pages/ContactUs'
 import ConsultHere from './pages/ConsultHere'
 import Login from './pages/Login'
+import OrderMedicine from './pages/OrderMedicine'
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/consult-here" element={<ConsultHere />} />
           <Route path='/login' element={<Login />} />
+          <Route path="/order-medicine" element={<OrderMedicine />} />
 
         </Routes>
         <Footer />

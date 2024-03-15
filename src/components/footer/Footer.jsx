@@ -6,7 +6,10 @@ const Footer = () => {
 
     const routePaths = ['/', '/consult-here', '/mood-tracking', '/emergency-support', '/about-us', '/contact-us'];
 
-    const isPageNotFound = routePaths.includes(location.pathname) || location.pathname === '/' || location.pathname === '/login';
+    const isPageNotFound = routePaths.includes(location.pathname) || location.pathname === '/' || location.pathname === '/order-medicine';
+    if (location.pathname === '/login') {
+        return null;
+    }
 
 
     return (
